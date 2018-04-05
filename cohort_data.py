@@ -78,6 +78,7 @@ def sort_by_cohort(filename):
     cohort_data.close()
 
     all_students = [fall_15, winter_16, spring_16, summer_16, ghosts]
+    # all_students.extend(fall_15, winter_16, spring_16, summer_16, ghosts)
 
     return all_students
 
@@ -105,8 +106,37 @@ def hogwarts_by_house(filename):
     ghosts = []
     instructors = []
 
-    # Code goes here
+    cohort_data = open(filename)
 
+    for line in cohort_data:
+        line = line.rstrip()
+        words = line.split('|')
+
+        house = words[2]
+        last_name = words[1]
+        cohort = words[4]
+
+        if house == "Dumbledore's Army":
+            dumbledores_army.append(last_name)
+        elif house == "Gryffindor":
+            gryffindor.append(last_name)
+        elif house == "Hufflepuff":
+            hufflepuff.append(last_name)
+        elif house == "Ravenclaw":
+            ravenclaw.append(last_name)
+        elif house == "Slytherin":
+            slytherin.append(last_name)
+        elif not house:
+            if cohort == "I":
+                instructors.append(last_name)
+            elif cohort == "G":
+                ghosts.append(last_name)
+
+    cohort_data.close()
+
+    all_hogwarts = [sorted(dumbledores_army), sorted(gryffindor),
+                    sorted(hufflepuff), sorted(ravenclaw), sorted(slytherin),
+                    sorted(ghosts), sorted(instructors)]
     return all_hogwarts
 
 
