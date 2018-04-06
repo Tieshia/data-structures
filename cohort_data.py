@@ -264,7 +264,7 @@ def find_house_members_by_student_name(student_list):
 #############################################################################
 # Here is some useful code to run these functions without doctests!
 all_students_data = all_students_tuple_list('cohort_data.txt')
-find_cohort_by_student_name(all_students_data)
+print find_cohort_by_student_name(all_students_data)
 # find_house_members_by_student_name(all_students_data)
 
 
@@ -274,8 +274,8 @@ find_cohort_by_student_name(all_students_data)
 
 
 
-# if __name__ == "__main__":
-#     import doctest
-#     result = doctest.testmod()
-#     if result.failed == 0:
-#         print("ALL TESTS PASSED")
+if __name__ == "__main__":
+    import doctest
+    result = doctest.testmod()
+    if result.failed == 0:
+        print("ALL TESTS PASSED")
