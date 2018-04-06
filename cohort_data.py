@@ -226,7 +226,34 @@ def find_name_duplicates(filename):
 
     duplicate_names = set()
 
-    # Code goes here
+    # create an empty set for each cohort
+    winter_16 = set()
+    spring_16 = set()
+    summer_16 = set()
+    fall_15 = set()
+
+    with open(filename) as cohort_data:
+        for line in cohort_data:
+            line = line.rstrip()
+            words = line.split("|")
+
+            last_name = words[1]
+            cohort = words[4]
+
+            # if not ghost or instructor
+            if cohort not in ["I", "G"]:
+                # add names to each cohort set
+                if cohort == "Winter 2016":
+                    winter_16.add(last_name)
+                elif cohort == "Spring 2016":
+                    spring_16.add(last_name)
+                elif cohort == "Summer 2016":
+                    summer_16.add(last_name)
+                elif cohort == "Fall 2015":
+                    fall_15.add(last_name)
+                
+    # duplicate_names = cohort1 & cohort2 &....
+    duplicate_names = winter_16 & spring_16 & summer_16 & fall_15
 
     return duplicate_names
 
@@ -256,16 +283,91 @@ def find_house_members_by_student_name(student_list):
      Oliver Wood
 
      """
+# create sets for each house
 
-    # Code goes here
+    dumbledores_army = set()
+    gryffindor = set()
+    hufflepuff = set()
+    ravenclaw = set()
+    slytherin = set()
+# create sets for each cohort
+    winter_16 = set()
+    spring_16 = set()
+    summer_16 = set()
+    fall_15 = set()
+
+    for student in student_list:
+        full_name = student[0]
+        house = student[1]
+        cohort = student[3]
+
+        if house == "Dumbledore's Army":
+            dumbledores_army.add(full_name)
+        elif house == "Gryffindor":
+            gryffindor.add(full_name)
+        elif house == "Hufflepuff":
+            hufflepuff.add(full_name)
+        elif house == "Ravenclaw":
+            ravenclaw.add(full_name)
+        elif house == "Slytherin":
+            slytherin.add(full_name)
+
+
+        if cohort == "Winter 2016":
+            winter_16.add(full_name)
+        elif cohort == "Spring 2016":
+            spring_16.add(full_name)
+        elif cohort == "Summer 2016":
+            summer_16.add(full_name)
+        elif cohort == "Fall 2015":
+            fall_15.add(full_name)
+    
+
+    search_name = raw_input("Choose a student: ")
+    for student in student_list:
+        if search_name in student:
+            full_name = student[0]
+            house = student[1]
+            cohort = student[3]
+            search_cohort = set()
+            search_house = set()
+
+            print "%s was in house %s in the %s cohort." % (full_name, 
+                            house, cohort)
+            if cohort == "Winter 2016":
+                search_cohort = winter_16
+            elif cohort == "Spring 2016":
+                search_cohort = spring_16
+            elif cohort == "Summer 2016":
+                search_cohort = summer_16
+            elif cohort == "Fall 2015":
+                search_cohort = fall_15
+
+            if house == "Dumbledore's Army":
+                search_house = dumbledores_army
+            elif house == "Gryffindor":
+                search_house = gryffindor
+            elif house == "Hufflepuff":
+                search_house = hufflepuff
+            elif house == "Ravenclaw":
+                search_house = ravenclaw
+            elif house == "Slytherin":
+                search_house = slytherin
+
+            search_house_and_cohort = search_house & search_cohort
+
+            print "\nThe following students are also in their house:"
+            for full_name in search_house_and_cohort:
+                if full_name != search_name:
+                    print "\t", full_name
 
     return
 
 #############################################################################
 # Here is some useful code to run these functions without doctests!
 all_students_data = all_students_tuple_list('cohort_data.txt')
-print find_cohort_by_student_name(all_students_data)
-# find_house_members_by_student_name(all_students_data)
+#print find_cohort_by_student_name(all_students_data)
+print find_house_members_by_student_name(all_students_data)
 
 
 ##############################################################################
@@ -274,8 +376,8 @@ print find_cohort_by_student_name(all_students_data)
 
 
 
-if __name__ == "__main__":
-    import doctest
-    result = doctest.testmod()
-    if result.failed == 0:
-        print("ALL TESTS PASSED")
+# if __name__ == "__main__":
+#     import doctest
+#     result = doctest.testmod()
+#     if result.failed == 0:
+#         print("ALL TESTS PASSED")
